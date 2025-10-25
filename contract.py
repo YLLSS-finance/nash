@@ -49,23 +49,23 @@ class accountContract:
         self._id += 1
         redOrders, incOrders = self.red[side], self.inc[side]
         
-        while True:
+        for i in range(0, 10):
             if len(redOrders) == 0:
                 break
             result = redOrders[-1].convertOrdr(ordr)
             if result is False:
                 break
-            
         self.globalAddOrder(ordr)
         self.chg(ordr.incCost * ordr.inc * -1)
         ordr.updateOrder()
 
 test = accountContract()
-val = [0, 25]
+val = [0, 20]
 test.position = val
 test.reducible = val
-test.addOrder(8, 0, 10)
+#test.addOrder(8, 0, 10)
 test.addOrder(7, 0, 10)
 print('red', test.reducible)
 print(test.red[0])
-test.addOrder(9, 0, 10)
+print('NEW ORDER')
+test.addOrder(9, 0, 50)

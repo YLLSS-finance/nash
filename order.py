@@ -35,11 +35,12 @@ class order:
         '''Transfers reduce quantity to increase quantity for a positive value and vice versa.'''
         self.inc += qty
         self.red -= qty
-        self.updateOrder()
     
     
     def convertOrdr(self, incOrdr):
         '''Shifts reduce quantity of incoming order to increase quantity. Will cause margin allocation.'''
+        if incOrdr == self:
+            raise Exception('self referance')
         if incOrdr.inc == 0:
             return False
         
@@ -47,18 +48,18 @@ class order:
         if incOrdr > self:
             print('red has prio')
             return False
-                
+        
+        print(f'passive red {self.red} \nactive inc {incOrdr.inc}')
         chgQty = min(incOrdr.inc, self.red)
         
         if chgQty == 0:
             return False
         
         self.move(chgQty)
+        self.updateOrder()
         incOrdr.move(-chgQty)
         
-        print('PAYMENT')
         self._master.chg(-self.incCost * chgQty)
-        self.updateOrder()
 
         
         
