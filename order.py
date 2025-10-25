@@ -31,13 +31,15 @@ class order:
         if self.inc == 0:
             inc.discard(self)
     
-    def move(self, qty):
+    def move(self, qty, _init = False):
         '''Transfers reduce quantity to increase quantity for a positive value and vice versa.'''
         self.inc += qty
         self.red -= qty
+
+        if not _init:
+            self._master.chg(-qty * self.incCost)
     
-    
-    def convertOrdr(self, incOrdr):
+    def swapQty(self, incOrdr):
         '''Shifts reduce quantity of incoming order to increase quantity. Will cause margin allocation.'''
         if incOrdr == self:
             raise Exception('self referance')
@@ -57,9 +59,5 @@ class order:
         
         self.move(chgQty)
         self.updateOrder()
-        incOrdr.move(-chgQty)
-        
-        self._master.chg(-self.incCost * chgQty)
-
-        
-        
+        incOrdr.move(-chgQty, _init=True)
+                

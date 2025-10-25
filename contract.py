@@ -4,6 +4,7 @@ from order import order
 import time as t
 
 class accountContract:
+    # TODO: init with list of orders, 
     def __init__(self):
         self._master = None
         self.contractID = 'contract'
@@ -52,12 +53,15 @@ class accountContract:
         for i in range(0, 10):
             if len(redOrders) == 0:
                 break
-            result = redOrders[-1].convertOrdr(ordr)
+            result = redOrders[-1].swapQty(ordr)
             if result is False:
                 break
         self.globalAddOrder(ordr)
         self.chg(ordr.incCost * ordr.inc * -1)
         ordr.updateOrder()
+    
+    def removeOrder(self, )    
+    
 
 test = accountContract()
 val = [0, 20]
