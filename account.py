@@ -6,6 +6,6 @@ class account:
         self.mpid = acctData['mpid']
         self.tokens = acctData['tokens']
         self.orders = {}
-        
+        #testing
         for contractName, contractData in acctData['contracts']:
             
