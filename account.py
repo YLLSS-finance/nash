@@ -6,6 +6,5 @@ class account:
         self.mpid = acctData['mpid']
         self.tokens = acctData['tokens']
         self.orders = {}
-        #tes
         for contractName, contractData in acctData['contracts']:
-            
+            #init contracts
